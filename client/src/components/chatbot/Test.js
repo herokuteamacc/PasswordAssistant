@@ -37,8 +37,13 @@ fetch("https://einsetin-chat-bot.herokuapp.com/getresponse", {
           
   }).then(response => response.text())
   .then((response) =>{ 
-    self.setState({ loading: false, result: response });
-      
+    if ( response==="Password Help"){
+
+     self.setState({ loading: false, result: "Would you like me to reset your password?" });
+    }
+    else{
+      self.setState({ loading: false, result: "Other Service Request !!" });
+    }
        
 
    })
