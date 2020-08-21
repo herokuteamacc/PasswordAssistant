@@ -52,10 +52,10 @@ fetch("https://einsetin-chat-bot.herokuapp.com/getresponse", {
 
   triggetNext() {
     this.setState({ trigger: true }, () => {
-      if(check===1){
+      if(check===2){
       this.props.triggerNextStep({trigger:'update'});
       }
-      else if(check===2){
+      else if(check===1){
         this.props.triggerNextStep({trigger:'update2'});
       }
     });
@@ -166,7 +166,7 @@ const ExampleDBPedia = () => (
   
    options: [
     { value: 'yes', label: 'Yes', trigger: 'update3-yes' },
-    { value: 'no', label: 'No', trigger: 'more' },
+    { value: 'no', label: 'No', trigger: 'end-message' },
   ],
 },
     
