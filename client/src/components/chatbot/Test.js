@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ChatBot, { Loading } from 'react-simple-chatbot';
-
+var check=1;
 class DBPedia extends Component {
   constructor(props) {
     super(props);
@@ -40,6 +40,7 @@ fetch("https://einsetin-chat-bot.herokuapp.com/getresponse", {
     if ( response==="Password Help"){
 
      self.setState({ loading: false, result: "Would you like me to reset your password?" });
+     check=2;
     }
     else{
       self.setState({ loading: false, result: "Other Service Request !!" });
@@ -51,7 +52,12 @@ fetch("https://einsetin-chat-bot.herokuapp.com/getresponse", {
 
   triggetNext() {
     this.setState({ trigger: true }, () => {
+      if(check===1){
       this.props.triggerNextStep({trigger:'update'});
+      }
+      else if(check===2){
+        this.props.triggerNextStep({trigger:'update2'});
+      }
     });
   }
 
@@ -129,6 +135,59 @@ const ExampleDBPedia = () => (
         message: 'Ok,Enter your query!',
         trigger: 'search',
       },
+{
+
+  id: 'update2',
+  
+   options: [
+    { value: 'yes', label: 'Yes', trigger: 'update2-yes' },
+    { value: 'no', label: 'No', trigger: 'end2-message' },
+  ],
+},
+{
+  id: 'update2-yes',
+  message: 'Ok,Please enter your email id!',
+  trigger: 'search2',
+},
+          {
+        id: 'search2',
+        user: true,
+        trigger: 'confirm',
+      },
+    
+{
+  id: 'confirm',
+  message: 'I have reset your password. You will receive a confirmation email shortly.',
+  trigger: 'more',
+},
+{
+
+  id: 'more-conf',
+  
+   options: [
+    { value: 'yes', label: 'Yes', trigger: 'update3-yes' },
+    { value: 'no', label: 'No', trigger: 'more' },
+  ],
+},
+    
+{
+  id: 'update3-yes',
+  message: 'Sure,Enter your query1',
+  trigger: 'search',
+}
+,
+    
+{
+  id: 'end2-message',
+  message: 'Ok, I wont reset your password.',
+  trigger: 'more',
+},
+    
+{
+  id: 'more',
+  message: 'Do you need any further assistence?',
+  trigger: 'more-conf',
+},
       {
         id: 'end-message',
         message: 'Thank you for your time.Have a nice day!',
