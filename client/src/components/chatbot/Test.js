@@ -172,7 +172,7 @@ const ExampleDBPedia = () => (
     
 {
   id: 'update3-yes',
-  message: 'Sure,Enter your query1',
+  message: 'Sure,Enter your query !',
   trigger: 'search',
 }
 ,
