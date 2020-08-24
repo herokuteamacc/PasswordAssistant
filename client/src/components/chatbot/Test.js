@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ChatBot, { Loading } from 'react-simple-chatbot';
+import SendEmail from './SendEmail'
 var check=1;
 class DBPedia extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class DBPedia extends Component {
   urlencoded.append("msg",search);
   
   
-fetch("https://einsetin-chat-bot.herokuapp.com/getresponse", {
+fetch("https://password-assistant.herokuapp.com/getresponse", {
           method: 'POST',
           headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
           body: urlencoded.toString()
@@ -152,14 +153,14 @@ const ExampleDBPedia = () => (
           {
         id: 'search2',
         user: true,
-        trigger: 'confirm',
+        trigger: 'callfun',
       },
-    
-{
-  id: 'confirm',
-  message: 'I have reset your password. You will receive a confirmation email shortly.',
-  trigger: 'more',
-},
+     {
+    id: 'callfun',
+    component : <SendEmail/>,
+    asMessage:true,
+    trigger: 'more',
+  },
 {
 
   id: 'more-conf',
