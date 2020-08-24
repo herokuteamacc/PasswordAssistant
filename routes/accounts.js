@@ -10,7 +10,7 @@ client.connect();
 const createAccount = (body) => {
     return new Promise(function(resolve, reject) {
       const { name, email } = body
-      client.query('INSERT INTO accounts (name, email) VALUES ($1, $2) RETURNING *', [name, email], (error, results) => {
+      client.query('INSERT INTO salesforce.account (name, email) VALUES ($1, $2) RETURNING *', [name, email], (error, results) => {
         if (error) {
           reject(error)
         }
