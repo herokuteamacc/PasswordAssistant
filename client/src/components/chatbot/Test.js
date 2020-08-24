@@ -43,7 +43,7 @@ fetch("https://einsetin-chat-bot.herokuapp.com/getresponse", {
      check=2;
     }
     else{
-      self.setState({ loading: false, result: "Other Service Request !!" });
+      self.setState({ loading: false, result: "Your request will be directed to"+respnse +"Queue" });
     }
        
 
