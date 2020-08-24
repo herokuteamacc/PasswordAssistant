@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ChatBot, { Loading } from 'react-simple-chatbot';
-var check=1;
+import { Loading } from 'react-simple-chatbot';
 class SendEmail extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +12,7 @@ class SendEmail extends Component {
 
     //this.triggetNext = this.triggetNext.bind(this);
   }
-
+  
 
   componentDidMount() {
     const self = this;
@@ -22,22 +21,18 @@ class SendEmail extends Component {
     const email = steps.search2.value;
     const name =steps.name.value;
 
-    function createAccount() {
-        
-        name = name ,
-        email =email,
-        fetch('https://password-assistant.herokuapp.com/accounts', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({name, email}),
-        });
-      }
+    
 
     if (confirm==='yes' && email !== '')
     {
-        createAccount();
+        fetch('https://password-assistant.herokuapp.com/accounts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({name, email}),
+    });
+
         self.setState({ loading: false, result: "I've reset your password. You'll receive a confirmation email shortly." });
   
     }
@@ -50,7 +45,7 @@ class SendEmail extends Component {
 
     return (
       <div className="sendemail">
-          {createAccount}
+          
         { loading ? <Loading /> : result }
                     
       </div>
