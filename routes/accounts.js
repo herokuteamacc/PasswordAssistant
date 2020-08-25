@@ -7,17 +7,18 @@ const client = new Client({
 client.connect();
 
 
-const createAccount = (body) => {
-    return new Promise(function(resolve, reject) {
-      const { name, email } = body
-      client.query('INSERT INTO salesforce.account (name, Email__c) VALUES ($1, $2) RETURNING *', [name, email], (error, results) => {
-        if (error) {
-          reject(error)
+exports.createAccount = function (req, res) {
+
+    var cols = [req.body.name,req.body.email];
+
+    client.query('INSERT INTO salesforce.account(name, email__c) VALUES($1, $2) RETURNING *', cols, function (err, result) {
+        if (err) {
+            console.log("Error Saving : %s ", err);
         }
-        resolve(`A new account has been added added: ${results.rows[0]}`)
-      })
-    })
-  }
+    console.log("Sucessfully added new record");
+    });
+
+};
 
   module.exports = {
     
