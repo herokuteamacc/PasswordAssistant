@@ -25,7 +25,7 @@ class SendEmail extends Component {
 
     if (confirm==='yes' && email !== '')
     {
-        fetch('https://password-assistant.herokuapp.com/accounts', {
+        fetch('https://password-assistant.herokuapp.com/accounts/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

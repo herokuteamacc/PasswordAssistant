@@ -7,7 +7,7 @@ const client = new Client({
 client.connect();
 
 
-exports.createAccount = function (req, res) {
+createAccount = function (req, res) {
 
     var cols = [req.body.name,req.body.email];
 
