@@ -20,7 +20,7 @@ class DBPedia extends Component {
   componentDidMount() {
     const self = this;
     const { steps } = this.props;
-    const search = steps.search.value;
+    const search = steps.services.value;
     
 
   var myHeaders = new Headers();
@@ -102,13 +102,18 @@ const ExampleDBPedia = () => (
           {
             id: '31',
             message: 'Hi {previousValue}! ,How can I help?',
-            trigger: 'search',
+            trigger: 'services',
           },
           {
-        id: 'search',
-        user: true,
-        trigger: '3',
-      },
+
+            id: 'services',
+            
+             options: [
+              { value: 'password', label: 'Password Assistance', trigger: '3' },
+              { value: 'order', label: 'Order Change', trigger: '3' },
+              { value: 'ship', label: 'Shipping Address', trigger: '3' },
+            ],
+          },
       {
         id: '3',
         component: <DBPedia />,
@@ -133,8 +138,8 @@ const ExampleDBPedia = () => (
       },
       {
         id: 'update-yes',
-        message: 'Ok,Enter your query!',
-        trigger: 'search',
+        message: 'Ok,Choose your request!',
+        trigger: 'services',
       },
 {
 
@@ -174,7 +179,7 @@ const ExampleDBPedia = () => (
 {
   id: 'update3-yes',
   message: 'Sure,Enter your query !',
-  trigger: 'search',
+  trigger: 'services',
 }
 ,
     
