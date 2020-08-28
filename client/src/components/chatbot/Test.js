@@ -11,6 +11,7 @@ class DBPedia extends Component {
       loading: true,
       result: '',
       trigger: false,
+      option: '',
     };
 
     this.triggetNext = this.triggetNext.bind(this);
@@ -40,11 +41,11 @@ fetch("https://password-assistant.herokuapp.com/getresponse", {
   .then((response) =>{ 
     if ( response==="Password Help"){
 
-     self.setState({ loading: false, result: "Would you like me to reset your password?" });
+     self.setState({ loading: false, result: "Would you like me to reset your password?" ,option: "1"});
      check=2;
     }
     else{
-      self.setState({ loading: false, result: "Your request will be directed to"+response +"Queue" });
+      self.setState({ loading: false, result: "Your request will be directed to"+response +"Queue" ,option: "2"});
     }
        
 
@@ -53,12 +54,13 @@ fetch("https://password-assistant.herokuapp.com/getresponse", {
 
   triggetNext() {
     this.setState({ trigger: true }, () => {
-      if(check===2){
+      if(option===2){
       this.props.triggerNextStep({trigger:'update'});
       }
-      else if(check===1){
+      else if(option===1){
         this.props.triggerNextStep({trigger:'update2'});
       }
+      
     });
   }
 
@@ -109,13 +111,14 @@ const ExampleDBPedia = () => (
             id: 'services',
             
              options: [
-              { value: 'password', label: 'Password Assistance', trigger: '3' },
-              { value: 'order', label: 'Order Change', trigger: '3' },
-              { value: 'ship', label: 'Shipping Address', trigger: '3' },
+              { value: 'password', label: 'Password Assistance', trigger: 'bot' },
+              { value: 'order', label: 'Order Change', trigger: 'bot' },
+              { value: 'ship', label: 'Shipping Address', trigger: 'bot' },
+              { value: 'agent', label: 'Talk to Agent', trigger: 'bot' },
             ],
           },
       {
-        id: '3',
+        id: 'bot',
         component: <DBPedia />,
         asMessage:true,
         waitAction: true,
