@@ -11,7 +11,7 @@ class DBPedia extends Component {
       loading: true,
       result: '',
       trigger: false,
-      option: '',
+      option: '3',
     };
 
     this.triggetNext = this.triggetNext.bind(this);
@@ -21,7 +21,7 @@ class DBPedia extends Component {
   componentDidMount() {
     const self = this;
     const { steps } = this.props;
-    const search = steps.services.value;
+    const search = steps.serviceslist.value;
     
 
   var myHeaders = new Headers();
@@ -41,7 +41,7 @@ fetch("https://password-assistant.herokuapp.com/getresponse", {
   .then((response) =>{ 
     if ( response==="Password Help"){
 
-     self.setState({ loading: false, result: "Would you like me to reset your password?" ,option: "1"});
+     self.setState({ loading: false, result: "Forgot your password?No worries !" ,option: "1"});
      check=2;
     }
     else{
@@ -54,11 +54,15 @@ fetch("https://password-assistant.herokuapp.com/getresponse", {
 
   triggetNext() {
     this.setState({ trigger: true }, () => {
+      const { option } = this.state;
       if(option===2){
       this.props.triggerNextStep({trigger:'update'});
       }
       else if(option===1){
-        this.props.triggerNextStep({trigger:'update2'});
+        this.props.triggerNextStep({trigger:'passwordqueue'});
+      }
+      else if(option===3){
+        this.props.triggerNextStep({trigger:'agent'});
       }
       
     });
@@ -92,29 +96,29 @@ const ExampleDBPedia = () => (
   <ChatBot
     steps={[
         {
-            id: '1',
-            message: 'What is your name?',
+            id: 'welcome',
+            message:'Hello,Welcome to SmartAssistance portal,May I know your name please?',
             trigger: 'name',
           },            
           {
             id: 'name',
             user: true,
-            trigger: '31',
+            trigger: 'greet',
           },
           {
-            id: '31',
+            id: 'greet',
             message: 'Hi {previousValue}! ,How can I help?',
-            trigger: 'services',
+            trigger: 'serviceslist',
           },
           {
 
-            id: 'services',
+            id: 'serviceslist',
             
              options: [
               { value: 'password', label: 'Password Assistance', trigger: 'bot' },
               { value: 'order', label: 'Order Change', trigger: 'bot' },
               { value: 'ship', label: 'Shipping Address', trigger: 'bot' },
-              { value: 'agent', label: 'Talk to Agent', trigger: 'bot' },
+              { value: 'agent', label: 'Talk to Agent', trigger: 'agent' },
             ],
           },
       {
@@ -142,15 +146,41 @@ const ExampleDBPedia = () => (
       {
         id: 'update-yes',
         message: 'Ok,Choose your request!',
-        trigger: 'services',
+        trigger: 'serviceslist',
       },
+      {
+        id: 'agent',
+        message: 'Please provide your phone number,Our service agent will contact you',
+        trigger: 'contact',
+      },           
+      {
+        id: 'contact',
+        user: true,
+        trigger: 'contactresponse',
+      },
+      {
+        id: 'contactresponse',
+        message: 'got it ,Our service agent will contact you asap',
+        trigger: 'contactresponse-more',
+      }
+      ,
+      {
+        id: 'contactresponse-more',
+        message: 'Is there anything I can help you with',
+        trigger: 'update-question',
+      }, 
+       {
+        id: 'passwordqueue',
+        message: 'Just click the reset button below and enter your e-mail - we’ll send you login details!',
+        trigger: 'update-question',
+      },  
 {
 
-  id: 'update2',
+  id: 'passwordqueue-options',
   
    options: [
-    { value: 'yes', label: 'Yes', trigger: 'update2-yes' },
-    { value: 'no', label: 'No', trigger: 'end2-message' },
+    { value: 'yes', label: 'Reset Password', trigger: 'update2-yes' },
+    { value: 'no', label: 'Main Menu', trigger: 'serviceslist' },
   ],
 },
 {
@@ -182,7 +212,7 @@ const ExampleDBPedia = () => (
 {
   id: 'update3-yes',
   message: 'Sure,Enter your query !',
-  trigger: 'services',
+  trigger: 'serviceslist',
 }
 ,
     
