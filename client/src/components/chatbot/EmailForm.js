@@ -1,31 +1,34 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Loading } from 'react-simple-chatbot';
 class EmailForm  extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      loading: true,
-      result: '',
+      
        };
-
-    //this.triggetNext = this.triggetNext.bind(this);
+       this.triggetNext = this.triggetNext.bind(this);
+    
   }
   
 
   componentDidMount() {
-    /*const self = this;
-    const { steps } = this.props;
-    const confirm = steps.poptions.value;
-    const email = steps.search2.value;
-    const name =steps.name.value;
-*/
+    
     
 
    
     
  }
+
+ triggetNext() {
+    this.setState({ trigger: true }, () => {
+            this.props.triggerNextStep({trigger:'more'});
+      });
+    }
+    
+      
+    
+  
 
     render() {
     const { loading, result } = this.state;
@@ -38,11 +41,10 @@ We will reply as soon as we can.
 </textarea>
        <form>
   <label>
-    Name:
-    <input type="text" name="name" />
-    <input type="text" name="name" />
-    <input type="text" name="name" />
-    <input type="text" name="name" />
+    Name: <input type="text" name="name" />
+    Email: <input type="text" name="name" />
+    Phone:<input type="text" name="name" />
+    Message:<input type="text" name="name" />
   </label>
   <input type="submit" value="Submit" />
 </form>
