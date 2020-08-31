@@ -22,7 +22,7 @@ class EmailForm  extends Component {
 
  triggetNext() {
     this.setState({ trigger: true }, () => {
-            this.props.triggerNextStep({trigger:'more'});
+            this.props.triggerNextStep({trigger:'shipresponse'});
       });
     }
     
@@ -34,17 +34,32 @@ class EmailForm  extends Component {
     const { trigger} = this.state;
 
     return (
-      <div className="EmailForm">
-          <textarea>Leave Us a Message<br></br>We will reply as soon as we can         
-</textarea>
+      <div style={{ width: '100%'}} className="EmailForm">
+          
        <form>
-  <label>
-    Name: <input type="text" name="name" />
-    Email: <input type="text" name="name" />
-    Phone:<input type="text" name="name" />
-    Message:<input type="text" name="name" />
-  </label>
-  {!trigger &&
+       Leave Us a Message
+       We will reply as soon as we can 
+       <table>
+          <tbody>
+            <tr>
+              <td>Name</td>
+              <td><input type="text" name="name" /></td>
+            </tr>
+            <tr>
+              <td>Email</td>
+              <td><input type="text" name="name" /></td>
+            </tr>
+            <tr>
+              <td>Phone</td>
+              <td><input type="text" name="name" /></td>
+            </tr>
+            <tr>
+              <td>Message</td>
+              <td><input type="text" name="name" /></td>
+            </tr>
+          </tbody>
+        </table>
+   {!trigger &&
               <button
                 onClick={() => this.triggetNext()}
               >

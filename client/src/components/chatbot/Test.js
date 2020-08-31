@@ -142,12 +142,17 @@ const ExampleDBPedia = () => (
           {
             id: 'ship',
             message:'Please enter your query!',
-            trigger:'shipmsg',
+            trigger:'shipinfo',
           },
           {
             id:'shipinfo',
             user:true,
             trigger:'bot'
+          },
+          {
+            id: 'shipresponse',
+            message:'Your response has been recorded!',
+            trigger:'more',
           },
       {
         id: 'bot',
