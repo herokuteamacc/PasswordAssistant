@@ -48,9 +48,7 @@ fetch("https://password-assistant.herokuapp.com/getresponse", {
     else if( response==="Shipping Info"){
       self.setState({ loading: false, result: response  ,option: "4"});
     }
-    else if ( response==="Order Change"){
-      self.setState({ loading: false, result: response +" ,I recommend you talk about this with one of our representatives ..." ,option: "3"});
-    }
+    
     else{
       self.setState({ loading: false, result: "Your request will be directed to "+response +" Queue" ,option: "2"});
     }
