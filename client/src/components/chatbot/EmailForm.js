@@ -15,12 +15,12 @@ class EmailForm  extends Component {
   
 
   componentDidMount() {
-    const self = this;
+    /*const self = this;
     const { steps } = this.props;
     const confirm = steps.poptions.value;
     const email = steps.search2.value;
     const name =steps.name.value;
-
+*/
     
 
    

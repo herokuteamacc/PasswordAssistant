@@ -133,7 +133,7 @@ const ExampleDBPedia = () => (
              options: [
               { value: 'password', label: 'Password Assistance', trigger: 'bot' },
               { value: 'order', label: 'Order Change', trigger: 'bot' },
-              { value: 'ship', label: 'Info', trigger: 'bot' },
+              { value: 'ship', label: 'Shipping Info', trigger: 'bot' },
               { value: 'agent', label: 'Talk to Agent', trigger: 'agent' },
               { value: 'email', label: 'Contact Us', trigger: 'emailform' },
               { value: 'no', label: 'Exit', trigger: 'end-message' },
@@ -164,7 +164,7 @@ const ExampleDBPedia = () => (
         id: 'update-question',
         
          options: [
-          { value: 'yes', label: 'Yes', trigger: 'Contact Us' },
+          { value: 'yes', label: 'Contact Us', trigger: 'emailform' },
           { value: 'list', label: 'Go Back to Menu', trigger: 'update-yes' },
           { value: 'no', label: 'Exit', trigger: 'end-message' },
         ],
@@ -174,7 +174,7 @@ const ExampleDBPedia = () => (
         message: 'Ok,Please choose how to continue:',
         trigger: 'serviceslist',
       },
-      ,
+      
       {
         id: 'shippinginfo',
         message: 'Please type in your Order ID.',
