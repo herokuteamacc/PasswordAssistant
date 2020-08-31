@@ -5,7 +5,7 @@ class EmailForm  extends Component {
     super(props);
 
     this.state = {
-      
+        trigger: false,
        };
        this.triggetNext = this.triggetNext.bind(this);
     
@@ -31,13 +31,11 @@ class EmailForm  extends Component {
   
 
     render() {
-    const { loading, result } = this.state;
+    const { trigger} = this.state;
 
     return (
       <div className="EmailForm">
-          <textarea>
-          Leave Us a Message
-We will reply as soon as we can.
+          <textarea>Leave Us a Message<br></br>We will reply as soon as we can         
 </textarea>
        <form>
   <label>
@@ -46,7 +44,13 @@ We will reply as soon as we can.
     Phone:<input type="text" name="name" />
     Message:<input type="text" name="name" />
   </label>
-  <input type="submit" value="Submit" />
+  {!trigger &&
+              <button
+                onClick={() => this.triggetNext()}
+              >
+                Submit
+              </button>
+            }
 </form>
                     
       </div>
