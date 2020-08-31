@@ -17,7 +17,7 @@ class SendEmail extends Component {
   componentDidMount() {
     const self = this;
     const { steps } = this.props;
-    const confirm = steps.update2.value;
+    const confirm = steps.poptions.value;
     const email = steps.search2.value;
     const name =steps.name.value;
 

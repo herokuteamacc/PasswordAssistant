@@ -41,11 +41,11 @@ fetch("https://password-assistant.herokuapp.com/getresponse", {
   .then((response) =>{ 
     if ( response==="Password Help"){
 
-     self.setState({ loading: false, result: "Forgot your password?No worries !" ,option: "1"});
+     self.setState({ loading: false, result: "Forgot your password?No worries!" ,option: "1"});
      check=2;
     }
     else{
-      self.setState({ loading: false, result: "Your request will be directed to"+response +"Queue" ,option: "2"});
+      self.setState({ loading: false, result: "Your request will be directed to "+response +" Queue" ,option: "2"});
     }
        
 
@@ -55,13 +55,13 @@ fetch("https://password-assistant.herokuapp.com/getresponse", {
   triggetNext() {
     this.setState({ trigger: true }, () => {
       const { option } = this.state;
-      if(option===2){
+      if(option==="2"){
       this.props.triggerNextStep({trigger:'update'});
       }
-      else if(option===1){
+      else if(option==="1"){
         this.props.triggerNextStep({trigger:'passwordqueue'});
       }
-      else if(option===3){
+      else if(option==="3"){
         this.props.triggerNextStep({trigger:'agent'});
       }
       
@@ -172,11 +172,11 @@ const ExampleDBPedia = () => (
        {
         id: 'passwordqueue',
         message: 'Just click the reset button below and enter your e-mail - we’ll send you login details!',
-        trigger: 'update-question',
+        trigger: 'poptions',
       },  
 {
 
-  id: 'passwordqueue-options',
+  id: 'poptions',
   
    options: [
     { value: 'yes', label: 'Reset Password', trigger: 'update2-yes' },
@@ -204,7 +204,7 @@ const ExampleDBPedia = () => (
   id: 'more-conf',
   
    options: [
-    { value: 'yes', label: 'Yes', trigger: 'update3-yes' },
+    { value: 'yes', label: 'Yes', trigger: 'update-yes' },
     { value: 'no', label: 'No', trigger: 'end-message' },
   ],
 },
