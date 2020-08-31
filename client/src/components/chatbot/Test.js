@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ChatBot, { Loading } from 'react-simple-chatbot';
-import SendEmail from './SendEmail'
-var check=1;
+import SendEmail from './SendEmail';
+import EmailForm from './EmailForm';
+
 class DBPedia extends Component {
   constructor(props) {
     super(props);
@@ -42,7 +43,13 @@ fetch("https://password-assistant.herokuapp.com/getresponse", {
     if ( response==="Password Help"){
 
      self.setState({ loading: false, result: "Forgot your password?No worries!" ,option: "1"});
-     check=2;
+    
+    }
+    else if( response==="Shipping Info"){
+      self.setState({ loading: false, result: response  ,option: "4"});
+    }
+    else if ( response==="Order Change"){
+      self.setState({ loading: false, result: response +" ,I recommend you talk about this with one of our representatives ..." ,option: "3"});
     }
     else{
       self.setState({ loading: false, result: "Your request will be directed to "+response +" Queue" ,option: "2"});
@@ -61,9 +68,13 @@ fetch("https://password-assistant.herokuapp.com/getresponse", {
       else if(option==="1"){
         this.props.triggerNextStep({trigger:'passwordqueue'});
       }
+      else if(option==="4"){
+        this.props.triggerNextStep({trigger:'shippinginfo'});
+      }
       else if(option==="3"){
         this.props.triggerNextStep({trigger:'agent'});
       }
+    
       
     });
   }
@@ -97,7 +108,7 @@ const ExampleDBPedia = () => (
     steps={[
         {
             id: 'welcome',
-            message:'Hello,Welcome to SmartAssistance portal,May I know your name please?',
+            message:'Hello,Welcome to our website,May I know your name please?',
             trigger: 'name',
           },            
           {
@@ -108,6 +119,11 @@ const ExampleDBPedia = () => (
           {
             id: 'greet',
             message: 'Hi {previousValue}! ,How can I help?',
+            trigger: 'services',
+          },
+          {
+            id: 'services',
+            message: 'Please write your question or choose one of the options below:',
             trigger: 'serviceslist',
           },
           {
@@ -117,8 +133,10 @@ const ExampleDBPedia = () => (
              options: [
               { value: 'password', label: 'Password Assistance', trigger: 'bot' },
               { value: 'order', label: 'Order Change', trigger: 'bot' },
-              { value: 'ship', label: 'Shipping Address', trigger: 'bot' },
+              { value: 'ship', label: 'Info', trigger: 'bot' },
               { value: 'agent', label: 'Talk to Agent', trigger: 'agent' },
+              { value: 'email', label: 'Contact Us', trigger: 'emailform' },
+              { value: 'no', label: 'Exit', trigger: 'end-message' },
             ],
           },
       {
@@ -128,10 +146,17 @@ const ExampleDBPedia = () => (
         waitAction: true,
         
       } ,
-            {
+        {
+        id: 'emailform',
+        component: < EmailForm/>,
+        asMessage:true,
+        waitAction: true,
+        
+      } 
+          ,  {
               id: 'update',
               
-              message:"Would you like to update your question?",
+              message:"I recommend you talk about this with one of our representatives ...",
               trigger:'update-question',
                },
       {
@@ -139,18 +164,35 @@ const ExampleDBPedia = () => (
         id: 'update-question',
         
          options: [
-          { value: 'yes', label: 'Yes', trigger: 'update-yes' },
-          { value: 'no', label: 'No', trigger: 'end-message' },
+          { value: 'yes', label: 'Yes', trigger: 'Contact Us' },
+          { value: 'list', label: 'Go Back to Menu', trigger: 'update-yes' },
+          { value: 'no', label: 'Exit', trigger: 'end-message' },
         ],
       },
       {
         id: 'update-yes',
-        message: 'Ok,Choose your request!',
+        message: 'Ok,Please choose how to continue:',
         trigger: 'serviceslist',
+      },
+      ,
+      {
+        id: 'shippinginfo',
+        message: 'Please type in your Order ID.',
+        trigger: 'orderid',
+      },           
+      {
+        id: 'orderid',
+        user: true,
+        trigger: 'shippinginforesponse',
+      },
+      {
+        id: 'shippinginforesponse',
+        message: 'Ready to be shipped, Package {previousValue} has been packed and is waiting for the pickup',
+        trigger: 'contactresponse-more',
       },
       {
         id: 'agent',
-        message: 'Please provide your phone number,Our service agent will contact you',
+        message: 'Please type in your phone number. This way I can get the right person to get in touch with you.',
         trigger: 'contact',
       },           
       {
@@ -160,7 +202,7 @@ const ExampleDBPedia = () => (
       },
       {
         id: 'contactresponse',
-        message: 'got it ,Our service agent will contact you asap',
+        message: 'Thank you. I have saved your phone number.Our service agent will contact you asap',
         trigger: 'contactresponse-more',
       }
       ,
