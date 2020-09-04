@@ -169,10 +169,17 @@ const ExampleDBPedia = () => (
         id: 'update-question',
         
          options: [
+          { value: 'agent', label: 'Talk to Agent', trigger: 'agent' },
           { value: 'yes', label: 'Contact Us', trigger: 'emailform' },
           { value: 'list', label: 'Go Back to Menu', trigger: 'services' },
           
         ],
+      }
+      ,
+      {
+        id: 'shipresponse',
+        message: 'Your response has been recorded, Our service agent will get in touch with you within 24 hrs',
+        trigger: 'more',
       },
       {
         id: 'update-yes',
