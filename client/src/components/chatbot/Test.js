@@ -22,7 +22,7 @@ class DBPedia extends Component {
   componentDidMount() {
     const self = this;
     const { steps } = this.props;
-    const search = steps.serviceslist.value||steps.shipinfo.value||steps.queryentry.value;
+    const search = steps.queryentry.value;
     
 
   var myHeaders = new Headers();
@@ -122,40 +122,27 @@ const ExampleDBPedia = () => (
           {
             id: 'services',
             message: 'Please write your question or choose one of the options below:',
-            trigger: 'serviceslist',
+            trigger: 'queryentry',
+          }
+          ,
+          {
+            id: 'queryentry',
+            user: true,
+            trigger: 'bot',
           },
           {
 
             id: 'serviceslist',
-            options: [
-              { value: 'password', label: 'Password Assistance', trigger: 'bot' },
-              { value: 'order', label: 'Order Change', trigger: 'bot' },
-              { value: 'ship', label: 'Shipping Info', trigger: 'ship' },
-              { value: 'agent', label: 'Talk to Agent', trigger: 'agent' },
-              { value: 'email', label: 'Contact Us', trigger: 'emailform' },
+           
+            user: true,
+            trigger: 'bot',
               
-            ],
-            trigger:'queryentry',
+            
           },
           {
             id: 'queryentry',
             user: true,
-            trigger: 'greet',
-          },
-          {
-            id: 'ship',
-            message:'Please enter your query!',
-            trigger:'shipinfo',
-          },
-          {
-            id:'shipinfo',
-            user:true,
-            trigger:'bot'
-          },
-          {
-            id: 'shipresponse',
-            message:'Your response has been recorded!',
-            trigger:'more',
+            trigger: 'bot',
           },
       {
         id: 'bot',
@@ -183,14 +170,14 @@ const ExampleDBPedia = () => (
         
          options: [
           { value: 'yes', label: 'Contact Us', trigger: 'emailform' },
-          { value: 'list', label: 'Go Back to Menu', trigger: 'update-yes' },
+          { value: 'list', label: 'Go Back to Menu', trigger: 'services' },
           
         ],
       },
       {
         id: 'update-yes',
-        message: 'Ok,Please choose how to continue:',
-        trigger: 'serviceslist',
+        message: 'Ok,Please enter your query!',
+        trigger: 'queryentry',
       },
       
       {
@@ -240,7 +227,7 @@ const ExampleDBPedia = () => (
   
    options: [
     { value: 'yes', label: 'Reset Password', trigger: 'update2-yes' },
-    { value: 'no', label: 'Main Menu', trigger: 'serviceslist' },
+    { value: 'no', label: 'Main Menu', trigger: 'services' },
   ],
 },
 {
@@ -272,7 +259,7 @@ const ExampleDBPedia = () => (
 {
   id: 'update3-yes',
   message: 'Sure,Enter your query !',
-  trigger: 'serviceslist',
+  trigger: 'queryentry',
 }
 ,
     
