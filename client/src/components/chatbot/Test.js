@@ -22,7 +22,7 @@ class DBPedia extends Component {
   componentDidMount() {
     const self = this;
     const { steps } = this.props;
-    const search = steps.serviceslist.value||steps.shipinfo.value;
+    const search = steps.serviceslist.value||steps.shipinfo.value||steps.queryentry.value;
     
 
   var myHeaders = new Headers();
@@ -135,7 +135,12 @@ const ExampleDBPedia = () => (
               { value: 'email', label: 'Contact Us', trigger: 'emailform' },
               
             ],
-            
+            trigger:'queryentry',
+          },
+          {
+            id: 'queryentry',
+            user: true,
+            trigger: 'greet',
           },
           {
             id: 'ship',
