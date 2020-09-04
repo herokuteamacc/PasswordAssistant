@@ -121,7 +121,7 @@ const ExampleDBPedia = () => (
           },
           {
             id: 'services',
-            message: 'Please write your question or choose one of the options below:',
+            message: 'Please enter your query here!',
             trigger: 'queryentry',
           }
           ,
